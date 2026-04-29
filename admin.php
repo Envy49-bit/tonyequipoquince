@@ -7,16 +7,16 @@ if(isset($_POST['guardar'])){
     $precio = $_POST['precio'];
     $stock = $_POST['stock'];
 
-    $conexion->query("INSERT INTO refacciones(nombre, descripcion, precio, stock)
+    $conexion->query("INSERT INTO articulos(nombre, descripcion, precio, stock)
     VALUES('$nombre','$descripcion','$precio','$stock')");
 }
 
 if(isset($_GET['eliminar'])){
     $id = $_GET['eliminar'];
-    $conexion->query("DELETE FROM refacciones WHERE id=$id");
+    $conexion->query("DELETE FROM articulos WHERE id=$id");
 }
 
-$resultado = $conexion->query("SELECT * FROM refacciones");
+$resultado = $conexion->query("SELECT * FROM articulos");
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +26,7 @@ $resultado = $conexion->query("SELECT * FROM refacciones");
 </head>
 <body>
 
-<h2>CRUD Refacciones</h2>
+<h2>CRUD Articulos</h2>
 
 <form method="POST">
     Nombre:<br>
