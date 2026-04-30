@@ -193,7 +193,7 @@ $resultado = $conexion->query("SELECT * FROM articulos");
                             <a href="editar.php?id=<?php echo $fila['id']; ?>" class="btn-action edit">Editar</a>
                             <a href="admin.php?eliminar=<?php echo $fila['id']; ?>" 
                                class="btn-action delete" 
-                               onclick="return confirm('¿Confirmar eliminación?')">Eliminar</a>[cite: 1]
+                               onclick="return confirm('¿Confirmar eliminación?')">Eliminar</a>
                         </td>
                     </tr>
                     <?php } ?>
