@@ -64,6 +64,7 @@ $resultado = $conexion->query("SELECT * FROM articulos");
     <td><?php echo $fila['precio']; ?></td>
     <td><?php echo $fila['stock']; ?></td>
     <td>
+        <a href="editar.php?id=<?php echo $fila['id']; ?>">Editar</a> | 
         <a href="admin.php?eliminar=<?php echo $fila['id']; ?>"
         onclick="return confirm('¿Eliminar registro?')">Eliminar</a>
     </td>
