@@ -3,7 +3,7 @@ if ($_POST) {
     $usuario = $_POST['usuario'];      //tu_numcontrol@itoaxaca.edu.mx
     $password = $_POST['password'];      //numcontrolTSO
 
-    if ($usuario == "tunumcontrol@itoaxaca.edu.mx" && $password == "numcontrolTSO") {
+    if ($usuario == "24160753@itoaxaca.edu.mx" && $password == "24160753") {
         header("Location: admin.php");
         exit();
     } else {
