@@ -7,7 +7,7 @@ if ($_POST) {
         header("Location: admin.php");
         exit();
     } else {
-        $error = "Acceso denegado. Verifica tus credenciales.";
+        $error = "El usuario o contraseña son incorrectos.";
     }
 }
 ?>
@@ -119,7 +119,7 @@ if ($_POST) {
 <body>
 
     <div class="login-box">
-        <h2>IDENTIFÍCATE.</h2>
+        <h2>IDENTIFÍCATE</h2>
         
         <form method="POST">
             <div class="form-group">
