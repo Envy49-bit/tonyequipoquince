@@ -124,8 +124,8 @@
     </nav>
 
     <section id="inicio">
-        <span style="color: var(--gray-text); text-transform: uppercase;">Papelería Tony / 2026</span>
-        <h1>EQUIPANDO<br>TU ESPACIO<br>CREATIVO.</h1>
+        <span style="color: var(--gray-text); text-transform: uppercase;">Equipando tu espacio creativo / 2026</span>
+        <h1>PAPELERIA<br>TONY<br></h1>
         <a href="#productos" class="cta-link">Explorar Catálogo ↓</a>
     </section>
 
@@ -141,10 +141,10 @@
     <section id="mision">
         <div class="mv-container">
             <h2>Misión</h2>
-            <p>Ofrecer productos de calidad al mejor precio para nuestros clientes creativos.</p>
+            <p>Ofrecer la más amplia variedad de artículos escolares y de oficina, brindando soluciones rápidas y de calidad para potenciar la creatividad y el trabajo de nuestros clientes.</p>
             
             <h2>Visión</h2>
-            <p>Ser líderes en la distribución de artículos de oficina en todo el estado de Oaxaca[cite: 3].</p>
+            <p>Ser la papelería líder y de mayor confianza en la región, reconocida por nuestra innovación constante y por estar siempre cerca de quienes buscan herramientas para el éxito.</p>
         </div>
     </section>
 
