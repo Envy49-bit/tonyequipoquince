@@ -119,7 +119,7 @@ if ($_POST) {
 <body>
 
     <div class="login-box">
-        <h2>IDENTIFÍCATE</h2>
+        <h2>INICIAR SESION</h2>
         
         <form method="POST">
             <div class="form-group">
