@@ -140,8 +140,8 @@ $resultado = $conexion->query("SELECT * FROM articulos");
 <body>
 
     <header>
-        <h2>Inventario.</h2>
-        <a href="index.php" class="logout-btn">Salir del sistema →</a>[cite: 3]
+        <h2>Inventario</h2>
+        <a href="index.php" class="logout-btn">Salir del sistema →</a>
     </header>
 
     <div class="container">
