@@ -38,7 +38,6 @@ if ($_POST) {
             overflow: hidden;
         }
 
-        /* --- CONTENEDOR DE FONDO --- */
         .background-overlay {
             position: fixed;
             top: 0;
@@ -46,13 +45,12 @@ if ($_POST) {
             width: 100%;
             height: 100%;
             z-index: -1;
-            /* Usamos una imagen de Unsplash optimizada para carga rápida */
             background: linear-gradient(rgba(13, 13, 13, 0.8), rgba(13, 13, 13, 0.8)), 
-                        url('https://images.unsplash.com/photo-1516962215378-7fa2e137ae93?auto=format&fit=crop&q=80&w=1920');
+                        url('fondo.jpg'); 
             background-size: cover;
             background-position: center;
             filter: blur(10px);
-            transform: scale(1.1); /* Evita bordes blancos por el desenfoque */
+            transform: scale(1.1);
         }
 
         .login-box {
