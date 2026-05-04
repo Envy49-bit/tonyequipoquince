@@ -1,14 +1,16 @@
 <?php
-if ($_POST) {
-    $usuario = $_POST['usuario'];
-    $password = $_POST['password'];
+session_start();
 
-    // Validación de credenciales según requerimientos
-    if ($usuario == "24160753@itoaxaca.edu.mx" && $password == "24160753") {
+if ($_POST) {
+    $usuario = $_POST['usuario'] ?? '';
+    $password = $_POST['password'] ?? '';
+
+    if ($usuario === "24160753@itoaxaca.edu.mx" && $password === "24160753") {
+        $_SESSION['user'] = $usuario;
         header("Location: admin.php");
         exit();
     } else {
-        $error = "El usuario o contraseña son incorrectos.";
+        $error = "Usuario o contraseña incorrectos";
     }
 }
 ?>
@@ -16,161 +18,151 @@ if ($_POST) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso — Papelería Tony</title>
-    <style>
-        :root {
-            --bg-color: #0d0d0d;
-            --card-bg: #111111;
-            --text-color: #ffffff;
-            --accent-color: #3498db;
-            --error-color: #e74c3c;
-            --input-border: #222;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acceso — Papelería Tony</title>
 
-        /* --- ANIMACIONES --- */
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+<style>
+:root {
+    --bg: #0d0d0d;
+    --glass: rgba(255,255,255,0.05);
+    --accent: #3498db;
+    --error: #e74c3c;
+}
 
-        body {
-            margin: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('fondo.jpg') center/cover no-repeat;
+}
 
-        .login-box {
-            width: 100%;
-            max-width: 400px;
-            padding: 40px;
-            animation: slideIn 1s cubic-bezier(0.215, 0.61, 0.355, 1);
-        }
+/* Overlay */
+body::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+}
 
-        h2 {
-            font-size: 3.5rem;
-            line-height: 0.85;
-            letter-spacing: -0.05em;
-            margin-bottom: 50px;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
+/* Card */
+.login-box {
+    position: relative;
+    width: 350px;
+    padding: 40px;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;
+    animation: fadeIn 0.8s ease;
+}
 
-        .form-group {
-            margin-bottom: 30px;
-            position: relative;
-        }
+@keyframes fadeIn {
+    from {opacity:0; transform: translateY(20px);}
+    to {opacity:1; transform: translateY(0);}
+}
 
-        label {
-            display: block;
-            text-transform: uppercase;
-            font-size: 0.65rem;
-            letter-spacing: 0.2em;
-            margin-bottom: 10px;
-            color: #666;
-            transition: color 0.3s;
-        }
+h2 {
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 
-        input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid var(--input-border);
-            padding: 12px 0;
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
+/* Inputs */
+.form-group {
+    position: relative;
+    margin-bottom: 25px;
+}
 
-        /* Efecto de línea al enfocar */
-        input:focus {
-            border-bottom-color: var(--accent-color);
-        }
+input {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid #555;
+    background: transparent;
+    color: white;
+    outline: none;
+}
 
-        input:focus + label {
-            color: var(--accent-color);
-        }
+label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    color: #aaa;
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
 
-        .btn-submit {
-            margin-top: 40px;
-            background: var(--text-color);
-            color: var(--bg-color);
-            border: none;
-            padding: 18px 0;
-            width: 100%;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+input:focus + label,
+input:valid + label {
+    top: -10px;
+    font-size: 0.65rem;
+    color: var(--accent);
+}
 
-        .btn-submit:hover {
-            background: var(--accent-color);
-            color: white;
-            transform: scale(1.02);
-        }
+/* Button */
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: var(--accent);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
 
-        .error-msg {
-            color: var(--error-color);
-            font-size: 0.7rem;
-            margin-top: 25px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-left: 2px solid var(--error-color);
-            padding-left: 15px;
-        }
+.btn:hover {
+    transform: scale(1.05);
+}
 
-        .back-link {
-            display: inline-block;
-            margin-top: 40px;
-            color: #444;
-            text-decoration: none;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-        }
+/* Error */
+.error {
+    color: var(--error);
+    margin-top: 15px;
+    font-size: 0.8rem;
+}
 
-        .back-link:hover {
-            color: var(--text-color);
-        }
-    </style>
+/* Back */
+.back {
+    display: block;
+    margin-top: 20px;
+    font-size: 0.7rem;
+    color: #aaa;
+    text-decoration: none;
+}
+</style>
 </head>
+
 <body>
 
-    <div class="login-box">
-        <h2>SISTEMA<br>DE ACCESO</h2>
-        
-        <form method="POST">
-            <div class="form-group">
-                <label>Usuario Corporativo</label>
-                <input type="text" name="usuario" required autofocus placeholder="ejemplo@itoaxaca.edu.mx">
-            </div>
+<div class="login-box">
+    <h2>Acceso</h2>
 
-            <div class="form-group">
-                <label>Contraseña</label>
-                <input type="password" name="password" required placeholder="••••••••">
-            </div>
+    <form method="POST">
+        <div class="form-group">
+            <input type="text" name="usuario" required>
+            <label>Usuario</label>
+        </div>
 
-            <input type="submit" value="Entrar al Dashboard" class="btn-submit">
-        </form>
+        <div class="form-group">
+            <input type="password" name="password" required>
+            <label>Contraseña</label>
+        </div>
 
-        <?php if(isset($error)): ?>
-            <div class="error-msg"><?php echo $error; ?></div>
-        <?php endif; ?>
+        <button class="btn">Entrar</button>
+    </form>
 
-        <a href="index.php" class="back-link">← Volver al portal</a>
-    </div>
+    <?php if(isset($error)) echo "<div class='error'>$error</div>"; ?>
+
+    <a href="index.php" class="back">← Volver</a>
+</div>
 
 </body>
 </html>
