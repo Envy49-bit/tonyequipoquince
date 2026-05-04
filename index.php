@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Papelería Tony — Minimal Office</title>
     <style>
-        /* Paleta Dark Premium */
         :root {
             --bg-color: #0d0d0d;
             --text-color: #ffffff;
@@ -13,7 +12,10 @@
             --gray-text: #888888;
         }
 
-        * { scroll-behavior: smooth; }
+        * { 
+            scroll-behavior: smooth; 
+            box-sizing: border-box;
+        }
 
         body {
             margin: 0;
@@ -21,137 +23,197 @@
             color: var(--text-color);
             font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Navegación Fija */
+        /* --- ANIMACIONES --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- NAVEGACIÓN --- */
         nav {
             position: fixed;
             top: 0; width: 100%;
-            padding: 20px 40px;
+            padding: 30px 50px;
             display: flex;
             justify-content: space-between;
-            background: rgba(13, 13, 13, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(13, 13, 13, 0.9);
+            backdrop-filter: blur(15px);
             z-index: 1000;
-            box-sizing: border-box;
         }
 
         nav a {
             color: var(--text-color);
             text-decoration: none;
-            margin-left: 20px;
-            font-size: 0.9rem;
+            margin-left: 30px;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            transition: color 0.3s;
         }
 
-        /* Secciones */
+        nav a:hover { color: var(--accent-color); }
+
+        /* --- SECCIONES --- */
         section {
             min-height: 100vh;
-            padding: 100px 40px;
+            padding: 120px 50px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            box-sizing: border-box;
-            border-bottom: 1px solid #222;
         }
 
-        /* Sección INICIO */
+        /* Hero Section */
         #inicio h1 {
-            font-size: clamp(3.5rem, 12vw, 9rem);
-            line-height: 0.85;
-            letter-spacing: -0.05em;
-            margin: 0;
-            font-weight: 600;
+            font-size: clamp(4rem, 15vw, 10rem);
+            line-height: 0.8;
+            letter-spacing: -0.06em;
+            margin: 20px 0;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
         .cta-link {
-            margin-top: 50px;
-            font-size: 1.5rem;
+            margin-top: 40px;
+            font-size: 1.2rem;
             color: var(--accent-color);
             text-decoration: none;
-            border-bottom: 2px solid var(--accent-color);
+            border-bottom: 1px solid var(--accent-color);
             width: fit-content;
+            padding-bottom: 5px;
+            transition: padding-left 0.3s;
         }
 
-        /* Sección PRODUCTOS */
+        .cta-link:hover { padding-left: 15px; }
+
+        /* Productos Grid */
         .grid-productos {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
         }
 
         .card {
+            background: #141414;
+            padding: 40px;
+            border: 1px solid #222;
+            transition: all 0.4s ease;
+        }
+
+        .card:hover {
             background: #1a1a1a;
-            padding: 30px;
-            border-radius: 5px;
-            transition: 0.3s;
+            border-color: var(--accent-color);
+            transform: translateY(-10px);
         }
 
-        .card:hover { background: #222; }
-
-        /* Sección MISIÓN/VISIÓN */
-        .mv-container {
-            max-width: 800px;
+        .card h3 { 
+            margin-top: 0; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
         }
 
-        .mv-container h2 { font-size: 3rem; margin-bottom: 10px; color: var(--accent-color); }
-        .mv-container p { font-size: 1.2rem; color: var(--gray-text); margin-bottom: 40px; }
-
-        /* FOOTER */
+        /* --- FOOTER --- */
         footer {
-            padding: 60px 40px;
+            padding: 80px 50px;
             background: #000;
+            border-top: 1px solid #222;
             display: flex;
             justify-content: space-between;
             color: var(--gray-text);
-            font-size: 0.8rem;
-            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div style="font-weight: bold;">TONY EQUIPO 15</div>
+        <div style="font-weight: 900; letter-spacing: 3px;">TONY / EQ 15</div>
         <div>
             <a href="#inicio">Inicio</a>
-            <a href="#productos">Productos</a>
-            <a href="#mision">Nosotros</a>
-            <a href="login.php" style="color: var(--accent-color);">Login</a>
+            <a href="#productos">Catálogo</a>
+            <a href="#nosotros">Nosotros</a>
+            <a href="login.php" style="color: var(--accent-color); font-weight: bold;">Acceso</a>
         </div>
     </nav>
 
     <section id="inicio">
-        <span style="color: var(--gray-text); text-transform: uppercase;">Equipando tu espacio creativo / 2026</span>
-        <h1>PAPELERIA<br>TONY<br></h1>
-        <a href="#productos" class="cta-link">Explorar Catálogo ↓</a>
+        <span class="reveal" style="color: var(--gray-text); text-transform: uppercase; letter-spacing: 3px;">
+            High-End Office Supplies / 2026
+        </span>
+        <h1 class="reveal" style="transition-delay: 0.2s;">PAPELERIA<br>TONY</h1>
+        <a href="#productos" class="cta-link reveal" style="transition-delay: 0.4s;">Explorar Catálogo ↓</a>
     </section>
 
     <section id="productos">
-        <h2>Productos Destacados</h2>
+        <h2 class="reveal" style="font-size: 0.8rem; text-transform: uppercase; color: var(--gray-text); letter-spacing: 5px; margin-bottom: 40px;">
+            Selección Curada
+        </h2>
         <div class="grid-productos">
-            <div class="card"><h3>Papelería Técnica</h3><p>Escuadras, compases y estilógrafos de precisión.</p></div>
-            <div class="card"><h3>Escritura Premium</h3><p>Bolígrafos y plumas de las mejores marcas.</p></div>
-            <div class="card"><h3>Organización</h3><p>Agendas y archivos para máxima productividad.</p></div>
+            <div class="card reveal" style="transition-delay: 0.1s;">
+                <h3>Papelería Técnica</h3>
+                <p>Instrumentos de precisión para arquitectura e ingeniería con estándares internacionales[cite: 2].</p>
+            </div>
+            <div class="card reveal" style="transition-delay: 0.2s;">
+                <h3>Escritura Premium</h3>
+                <p>Curaduría de bolígrafos y estilógrafos diseñados para la durabilidad y el confort[cite: 2].</p>
+            </div>
+            <div class="card reveal" style="transition-delay: 0.3s;">
+                <h3>Organización</h3>
+                <p>Sistemas de archivo y agendas minimalistas para potenciar la productividad diaria[cite: 2].</p>
+            </div>
         </div>
     </section>
 
-    <section id="mision">
-        <div class="mv-container">
-            <h2>Misión</h2>
-            <p>Ofrecer la más amplia variedad de artículos escolares y de oficina, brindando soluciones rápidas y de calidad para potenciar la creatividad y el trabajo de nuestros clientes.</p>
+    <section id="nosotros">
+        <div style="max-width: 800px;">
+            <h2 class="reveal" style="color: var(--accent-color); font-size: 3rem; margin-bottom: 20px;">Misión</h2>
+            <p class="reveal" style="font-size: 1.5rem; color: var(--gray-text); margin-bottom: 60px;">
+                Brindar soluciones rápidas y de alta calidad que potencien la creatividad de nuestros clientes[cite: 2].
+            </p>
             
-            <h2>Visión</h2>
-            <p>Ser la papelería líder y de mayor confianza en la región, reconocida por nuestra innovación constante y por estar siempre cerca de quienes buscan herramientas para el éxito.</p>
+            <h2 class="reveal" style="color: var(--accent-color); font-size: 3rem; margin-bottom: 20px;">Visión</h2>
+            <p class="reveal" style="font-size: 1.5rem; color: var(--gray-text);">
+                Ser el referente regional en innovación de artículos de oficina, siempre a la vanguardia del éxito[cite: 2].
+            </p>
         </div>
     </section>
 
     <footer>
-        <div>© 2026 Papelería Tony</div>
-        <div>Diseñado para Evaluación TSO</div>
+        <div>© 2026 Papelería Tony — Oaxaca, México</div>
+        <div>Desarrollo: TSO / Equipo 15[cite: 2]</div>
     </footer>
+
+    <script>
+        // Lógica de Scroll Reveal
+        const observerOptions = { threshold: 0.15 };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 
 </body>
 </html>
