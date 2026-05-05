@@ -1,206 +1,131 @@
 <?php
-include("conexion.php");
+session_start();
 
-if(isset($_POST['guardar'])){
-    $nombre = $_POST['nombre'];
-    $descripcion = $_POST['descripcion'];
-    $precio = $_POST['precio'];
-    $stock = $_POST['stock'];
-
-    $conexion->query("INSERT INTO articulos(nombre, descripcion, precio, stock) 
-    VALUES('$nombre','$descripcion','$precio','$stock')");
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit();
 }
-
-if(isset($_GET['eliminar'])){
-    $id = $_GET['eliminar'];
-    $conexion->query("DELETE FROM articulos WHERE id=$id");
-}
-
-$resultado = $conexion->query("SELECT * FROM articulos");
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard — Papelería Tony</title>
-    <style>
-        :root {
-            --bg-color: #0d0d0d;
-            --card-bg: #161616;
-            --text-color: #ffffff;
-            --accent-color: #3498db;
-            --border-color: #222;
-        }
+<meta charset="UTF-8">
+<title>Admin — Papelería Tony</title>
 
-        body {
-            margin: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Inter', sans-serif;
-            padding: 40px;
-        }
+<style>
+:root {
+    --bg: #0d0d0d;
+    --card: #141414;
+    --accent: #3498db;
+    --text: #fff;
+    --gray: #888;
+}
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 60px;
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
 
-        h2 {
-            font-size: 3rem;
-            line-height: 0.9;
-            letter-spacing: -0.05em;
-            text-transform: uppercase;
-            margin: 0;
-        }
+/* Header */
+.header {
+    padding: 20px 40px;
+    background: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .container {
-            display: grid;
-            grid-template-columns: 350px 1fr;
-            gap: 60px;
-        }
+.header a {
+    color: var(--accent);
+    text-decoration: none;
+}
 
-        .form-section h3 {
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.2em;
-            color: #555;
-            margin-bottom: 30px;
-        }
+/* Container */
+.container {
+    padding: 40px;
+}
 
-        .form-group { margin-bottom: 20px; }
-        label { display: block; font-size: 0.7rem; text-transform: uppercase; color: #888; margin-bottom: 5px; }
-        
-        input[type="text"], input[type="number"] {
-            width: 100%;
-            background: #111;
-            border: 1px solid var(--border-color);
-            padding: 12px;
-            color: white;
-            outline: none;
-            box-sizing: border-box;
-        }
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
 
-        input[type="submit"] {
-            width: 100%;
-            background: white;
-            color: black;
-            border: none;
-            padding: 15px;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            margin-top: 10px;
-        }
+th, td {
+    padding: 15px;
+    text-align: left;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+th {
+    color: var(--gray);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
 
-        th {
-            text-align: left;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            color: #555;
-            padding: 15px 10px;
-            border-bottom: 1px solid var(--border-color);
-        }
+tr {
+    border-bottom: 1px solid #222;
+    transition: 0.3s;
+}
 
-        td {
-            padding: 20px 10px;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.9rem;
-        }
+tr:hover {
+    background: #1a1a1a;
+}
 
-        tr:hover { background: #111; }
+/* Buttons */
+.btn {
+    padding: 8px 15px;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.8rem;
+}
 
-        .btn-action {
-            text-decoration: none;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            font-weight: bold;
-            margin-right: 15px;
-        }
-
-        .edit { color: var(--accent-color); }
-        .delete { color: #e74c3c; }
-
-        .logout-btn {
-            color: #555;
-            text-decoration: none;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-        }
-    </style>
+.btn-danger {
+    background: #e74c3c;
+}
+</style>
 </head>
+
 <body>
 
-    <header>
-        <h2>Inventario</h2>
-        <a href="index.php" class="logout-btn">Salir del sistema →</a>
-    </header>
+<div class="header">
+    <h2>Panel Admin</h2>
+    <a href="logout.php">Cerrar sesión</a>
+</div>
 
-    <div class="container">
-        <div class="form-section">
-            <h3>Nuevo Registro</h3>
-            <form method="POST">
-                <div class="form-group">
-                    <label>Nombre del Producto</label>
-                    <input type="text" name="nombre" required>
-                </div>
-                <div class="form-group">
-                    <label>Descripción</label>
-                    <input type="text" name="descripcion">
-                </div>
-                <div class="form-group">
-                    <label>Precio (MXN)</label>
-                    <input type="text" name="precio" required>
-                </div>
-                <div class="form-group">
-                    <label>Stock Disponible</label>
-                    <input type="number" name="stock" required>
-                </div>
-                <input type="submit" name="guardar" value="Añadir a Catálogo">
-            </form>
-        </div>
+<div class="container">
 
-        <!-- Sección de Tabla (READ / DELETE)[cite: 1] -->
-        <div class="table-section">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Producto</th>
-                        <th>Descripción</th>
-                        <th>Precio</th>
-                        <th>Stock</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while($fila = $resultado->fetch_assoc()){ ?>
-                    <tr>
-                        <td style="color: #444;"><?php echo $fila['id']; ?></td>
-                        <td style="font-weight: bold;"><?php echo $fila['nombre']; ?></td>
-                        <td style="color: #888;"><?php echo $fila['descripcion']; ?></td>
-                        <td>$<?php echo $fila['precio']; ?></td>
-                        <td><?php echo $fila['stock']; ?></td>
-                        <td>
-                            <a href="editar.php?id=<?php echo $fila['id']; ?>" class="btn-action edit">Editar</a>
-                            <a href="admin.php?eliminar=<?php echo $fila['id']; ?>" 
-                               class="btn-action delete" 
-                               onclick="return confirm('¿Confirmar eliminación?')">Eliminar</a>
-                        </td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
+<h3>Productos</h3>
+
+<a href="agregar.php" class="btn">+ Nuevo producto</a>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+    </tr>
+
+    <!-- EJEMPLO -->
+    <tr>
+        <td>1</td>
+        <td>Cuaderno</td>
+        <td>$50</td>
+        <td>
+            <a href="editar.php?id=1" class="btn">Editar</a>
+            <a href="eliminar.php?id=1" class="btn btn-danger">Eliminar</a>
+        </td>
+    </tr>
+
+</table>
+
+</div>
 
 </body>
 </html>
