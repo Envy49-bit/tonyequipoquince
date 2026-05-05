@@ -1,155 +1,96 @@
 <?php
-include("conexion.php");
+session_start();
 
-if(!isset($_GET['id'])) {
-    header("Location: admin.php");
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
     exit();
 }
 
-$id = $_GET['id'];
-
-$resultado = $conexion->query("SELECT * FROM articulos WHERE id=$id");
-$articulo = $resultado->fetch_assoc();
-
-if(isset($_POST['actualizar'])){
-    $nombre = $_POST['nombre'];
-    $descripcion = $_POST['descripcion'];
-    $precio = $_POST['precio'];
-    $stock = $_POST['stock'];
-
-    $conexion->query("UPDATE articulos SET nombre='$nombre', descripcion='$descripcion', precio='$precio', stock='$stock' WHERE id=$id");
-    header("Location: admin.php");
-    exit();
-}
+// Aquí normalmente cargas datos por ID
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Editar — Papelería Tony</title>
-    <style>
-        :root {
-            --bg-color: #0d0d0d;
-            --text-color: #ffffff;
-            --accent-color: #3498db;
-            --border-color: #222;
-        }
+<meta charset="UTF-8">
+<title>Editar Producto</title>
 
-        body {
-            margin: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+<style>
+:root {
+    --bg: #0d0d0d;
+    --card: #141414;
+    --accent: #3498db;
+}
 
-        .edit-box {
-            width: 100%;
-            max-width: 500px;
-            padding: 40px;
-        }
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg);
+    font-family: Arial;
+}
 
-        h2 {
-            font-size: 3rem;
-            line-height: 0.9;
-            letter-spacing: -0.05em;
-            text-transform: uppercase;
-            margin-bottom: 50px;
-        }
+.box {
+    background: var(--card);
+    padding: 40px;
+    width: 350px;
+}
 
-        .form-group {
-            margin-bottom: 25px;
-        }
+h2 {
+    margin-bottom: 30px;
+}
 
-        label {
-            display: block;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            color: #555;
-            margin-bottom: 8px;
-        }
+/* Inputs */
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
 
-        input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid #333;
-            padding: 10px 0;
-            color: white;
-            font-size: 1.1rem;
-            outline: none;
-            transition: border-color 0.3s;
-        }
+input {
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #555;
+    color: white;
+}
 
-        input:focus {
-            border-color: var(--accent-color);
-        }
+input:focus {
+    border-color: var(--accent);
+    outline: none;
+}
 
-        .btn-update {
-            margin-top: 40px;
-            background: white;
-            color: black;
-            border: none;
-            padding: 15px 0;
-            width: 100%;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            cursor: pointer;
-            transition: opacity 0.3s;
-        }
-
-        .btn-update:hover {
-            opacity: 0.8;
-        }
-
-        .cancel-link {
-            display: block;
-            margin-top: 30px;
-            color: #555;
-            text-decoration: none;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            text-align: center;
-        }
-    </style>
+/* Button */
+.btn {
+    width: 100%;
+    padding: 10px;
+    background: var(--accent);
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+</style>
 </head>
+
 <body>
 
-    <div class="edit-box">
-        <h2>MODIFICAR<br>REGISTRO</h2>
-        
-        <form method="POST">
-            <div class="form-group">
-                <label>Nombre del Articulo</label>
-                <input type="text" name="nombre" value="<?php echo $articulo['nombre']; ?>" required>
-            </div>
+<div class="box">
+    <h2>Editar Producto</h2>
 
-            <div class="form-group">
-                <label>Descripcion</label>
-                <input type="text" name="descripcion" value="<?php echo $articulo['descripcion']; ?>">
-            </div>
+    <form method="POST">
+        <div class="input-group">
+            <input type="text" name="nombre" placeholder="Nombre">
+        </div>
 
-            <div class="form-group">
-                <label>Precio Unitario</label>
-                <input type="text" name="precio" value="<?php echo $articulo['precio']; ?>" required>
-            </div>
+        <div class="input-group">
+            <input type="number" name="precio" placeholder="Precio">
+        </div>
 
-            <div class="form-group">
-                <label>Stock en Almacen</label>
-                <input type="number" name="stock" value="<?php echo $articulo['stock']; ?>" required>
-            </div>
-
-            <input type="submit" name="actualizar" value="Actualizar Cambios" class="btn-update">
-        </form>
-
-        <a href="admin.php" class="cancel-link">← Cancelar y volver</a>
-    </div>
+        <button class="btn">Guardar cambios</button>
+    </form>
+</div>
 
 </body>
 </html>
