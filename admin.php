@@ -28,12 +28,11 @@ $resultado = $conexion->query($sql);
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
     background: var(--bg);
     color: var(--text);
+    font-family: Arial;
 }
 
-/* Header */
 .header {
     padding: 20px 40px;
     background: #000;
@@ -47,39 +46,10 @@ body {
     text-decoration: none;
 }
 
-/* Container */
 .container {
     padding: 40px;
 }
 
-/* Table */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-th, td {
-    padding: 15px;
-    text-align: left;
-}
-
-th {
-    color: var(--gray);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-}
-
-tr {
-    border-bottom: 1px solid #222;
-    transition: 0.3s;
-}
-
-tr:hover {
-    background: #1a1a1a;
-}
-
-/* Buttons */
 .btn {
     padding: 8px 15px;
     background: var(--accent);
@@ -92,6 +62,32 @@ tr:hover {
 .btn-danger {
     background: #e74c3c;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    padding: 15px;
+    text-align: left;
+}
+
+th {
+    color: var(--gray);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+tr {
+    border-bottom: 1px solid #222;
+}
+
+tr:hover {
+    background: #1a1a1a;
+}
 </style>
 </head>
 
@@ -99,43 +95,65 @@ tr:hover {
 
 <div class="header">
     <h2>Panel Admin</h2>
-    <a href="logout.php">Logout</a>
+    <a href="logout.php">Cerrar sesión</a>
 </div>
 
 <div class="container">
 
-<h3>Productos</h3>
+    <h3>Productos</h3>
 
-<a href="agregar.php" class="btn">+ Nuevo producto</a>
+    <a href="agregar.php" class="btn">
+        + Nuevo producto
+    </a>
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Precio</th>
-        <th>Stock</th>
-        <th>Acciones</th>
-    </tr>
+    <table>
 
-<?php while($fila = $resultado->fetch_assoc()) { ?>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+        </tr>
 
-<tr>
-    <td><?= $fila['id'] ?></td>
-    <td><?= $fila['nombre'] ?></td>
-    <td>$<?= $fila['precio'] ?></td>
-    <td><?= $fila['stock'] ?></td>
-    <td>
-        <a href="editar.php?id=<?= $fila['id'] ?>" class="btn">Editar</a>
+        <?php while($fila = $resultado->fetch_assoc()) { ?>
 
-        <a href="eliminar.php?id=<?= $fila['id'] ?>" class="btn btn-danger">
-            Eliminar
-        </a>
-    </td>
-</tr>
+        <tr>
 
-<?php } ?>
+            <td><?= $fila['id'] ?></td>
 
-</table>
+            <td><?= $fila['nombre'] ?></td>
+
+            <td><?= $fila['descripcion'] ?></td>
+
+            <td>$<?= $fila['precio'] ?></td>
+
+            <td><?= $fila['stock'] ?></td>
+
+            <td>
+
+                <a
+                    href="editar.php?id=<?= $fila['id'] ?>"
+                    class="btn"
+                >
+                    Editar
+                </a>
+
+                <a
+                    href="eliminar.php?id=<?= $fila['id'] ?>"
+                    class="btn btn-danger"
+                >
+                    Eliminar
+                </a>
+
+            </td>
+
+        </tr>
+
+        <?php } ?>
+
+    </table>
 
 </div>
 
