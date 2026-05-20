@@ -143,6 +143,10 @@ input:focus {
             <input type="number" name="precio" required>
         </div>
 
+        <div class="input-group">
+            <input type="number" name="stock" required>
+        </div>
+
         <button class="btn">Guardar producto</button>
     </form>
 
