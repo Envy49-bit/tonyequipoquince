@@ -1,9 +1,23 @@
 <?php
 session_start();
+include("conexion.php");
 
 if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit();
+}
+
+if ($_POST) {
+
+    $nombre = $_POST['nombre'];
+    $precio = $_POST['precio'];
+
+    $sql = "INSERT INTO articulos(nombre, precio)
+            VALUES('$nombre','$precio')";
+
+    $conexion->query($sql);
+
+    header("Location: admin.php");
 }
 ?>
 
