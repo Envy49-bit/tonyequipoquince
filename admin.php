@@ -99,7 +99,7 @@ tr:hover {
 
 <div class="header">
     <h2>Panel Admin</h2>
-    <a href="logout.php">Cerrar sesión</a>
+    <a href="logout.php">Logout</a>
 </div>
 
 <div class="container">
