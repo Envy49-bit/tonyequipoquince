@@ -113,6 +113,7 @@ tr:hover {
         <th>ID</th>
         <th>Nombre</th>
         <th>Precio</th>
+        <th>Stock</th>
         <th>Acciones</th>
     </tr>
 
@@ -122,6 +123,7 @@ tr:hover {
     <td><?= $fila['id'] ?></td>
     <td><?= $fila['nombre'] ?></td>
     <td>$<?= $fila['precio'] ?></td>
+    <td><?= $fila['stock'] ?></td>
     <td>
         <a href="editar.php?id=<?= $fila['id'] ?>" class="btn">Editar</a>
 
