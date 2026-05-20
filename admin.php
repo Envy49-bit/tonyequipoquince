@@ -116,16 +116,22 @@ tr:hover {
         <th>Acciones</th>
     </tr>
 
-    <!-- EJEMPLO -->
-    <tr>
-        <td>1</td>
-        <td>Cuaderno</td>
-        <td>$50</td>
-        <td>
-            <a href="editar.php?id=1" class="btn">Editar</a>
-            <a href="eliminar.php?id=1" class="btn btn-danger">Eliminar</a>
-        </td>
-    </tr>
+<?php while($fila = $resultado->fetch_assoc()) { ?>
+
+<tr>
+    <td><?= $fila['id'] ?></td>
+    <td><?= $fila['nombre'] ?></td>
+    <td>$<?= $fila['precio'] ?></td>
+    <td>
+        <a href="editar.php?id=<?= $fila['id'] ?>" class="btn">Editar</a>
+
+        <a href="eliminar.php?id=<?= $fila['id'] ?>" class="btn btn-danger">
+            Eliminar
+        </a>
+    </td>
+</tr>
+
+<?php } ?>
 
 </table>
 
