@@ -1,12 +1,35 @@
 <?php
 session_start();
+include("conexion.php");
 
 if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit();
 }
 
-// Aquí normalmente cargas datos por ID
+$id = $_GET['id'];
+
+/* Obtener datos actuales */
+$sql = "SELECT * FROM articulos WHERE id=$id";
+$resultado = $conexion->query($sql);
+$producto = $resultado->fetch_assoc();
+
+/* Actualizar */
+if ($_POST) {
+
+    $nombre = $_POST['nombre'];
+    $precio = $_POST['precio'];
+
+    $update = "UPDATE articulos
+               SET nombre='$nombre',
+                   precio='$precio'
+               WHERE id=$id";
+
+    $conexion->query($update);
+
+    header("Location: admin.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +43,7 @@ if (!isset($_SESSION['user'])) {
     --bg: #0d0d0d;
     --card: #141414;
     --accent: #3498db;
+    --gray: #888;
 }
 
 body {
@@ -36,15 +60,16 @@ body {
     background: var(--card);
     padding: 40px;
     width: 350px;
+    border-radius: 10px;
 }
 
 h2 {
     margin-bottom: 30px;
+    color: white;
 }
 
 /* Inputs */
 .input-group {
-    position: relative;
     margin-bottom: 25px;
 }
 
@@ -62,7 +87,7 @@ input:focus {
     outline: none;
 }
 
-/* Button */
+/* Buttons */
 .btn {
     width: 100%;
     padding: 10px;
@@ -70,6 +95,15 @@ input:focus {
     border: none;
     color: white;
     cursor: pointer;
+    border-radius: 5px;
+}
+
+.back {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    color: var(--gray);
+    text-decoration: none;
 }
 </style>
 </head>
@@ -77,19 +111,37 @@ input:focus {
 <body>
 
 <div class="box">
+
     <h2>Editar Producto</h2>
 
     <form method="POST">
+
         <div class="input-group">
-            <input type="text" name="nombre" placeholder="Nombre">
+            <input
+                type="text"
+                name="nombre"
+                value="<?= $producto['nombre'] ?>"
+                required
+            >
         </div>
 
         <div class="input-group">
-            <input type="number" name="precio" placeholder="Precio">
+            <input
+                type="number"
+                name="precio"
+                value="<?= $producto['precio'] ?>"
+                required
+            >
         </div>
 
         <button class="btn">Guardar cambios</button>
+
     </form>
+
+    <a href="admin.php" class="back">
+        ← Cancelar
+    </a>
+
 </div>
 
 </body>
