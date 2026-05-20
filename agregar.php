@@ -11,9 +11,10 @@ if ($_POST) {
 
     $nombre = $_POST['nombre'];
     $precio = $_POST['precio'];
+    $stock = $_POST['stock'];
 
-    $sql = "INSERT INTO articulos(nombre, precio)
-            VALUES('$nombre','$precio')";
+    $sql = "INSERT INTO articulos(nombre, precio, stock)
+            VALUES('$nombre','$precio', '$stock')";
 
     $conexion->query($sql);
 
