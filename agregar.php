@@ -10,11 +10,12 @@ if (!isset($_SESSION['user'])) {
 if ($_POST) {
 
     $nombre = $_POST['nombre'];
+    $descripcion = $_POST['descripcion'];
     $precio = $_POST['precio'];
     $stock = $_POST['stock'];
 
-    $sql = "INSERT INTO articulos(nombre, precio, stock)
-            VALUES('$nombre','$precio', '$stock')";
+    $sql = "INSERT INTO articulos(nombre, descripcion, precio, stock)
+            VALUES('$nombre','$descripcion','$precio','$stock')";
 
     $conexion->query($sql);
 
@@ -43,11 +44,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Inter', sans-serif;
+    font-family: Arial;
     background: url('fondo.jpg') center/cover no-repeat;
 }
 
-/* Overlay */
 body::before {
     content: "";
     position: absolute;
@@ -57,73 +57,60 @@ body::before {
     backdrop-filter: blur(8px);
 }
 
-/* Card */
 .box {
     position: relative;
-    width: 350px;
+    width: 400px;
     padding: 40px;
     background: var(--card);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 15px;
-    animation: fadeIn 0.8s ease;
-}
-
-@keyframes fadeIn {
-    from {opacity:0; transform: translateY(20px);}
-    to {opacity:1; transform: translateY(0);}
+    backdrop-filter: blur(20px);
 }
 
 h2 {
     margin-bottom: 30px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    color: white;
 }
 
-/* Inputs */
 .input-group {
-    position: relative;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
-input {
+input,
+textarea {
     width: 100%;
-    padding: 10px 0;
+    padding: 12px;
+    background: transparent;
     border: none;
     border-bottom: 1px solid #555;
-    background: transparent;
     color: white;
     outline: none;
-    transition: 0.3s;
+    font-size: 14px;
 }
 
-input:focus {
+textarea {
+    resize: none;
+    height: 80px;
+}
+
+input:focus,
+textarea:focus {
     border-bottom-color: var(--accent);
-    transform: scale(1.02);
 }
 
-/* Button */
 .btn {
     width: 100%;
     padding: 12px;
-    border: none;
     background: var(--accent);
+    border: none;
     color: white;
-    font-weight: bold;
     cursor: pointer;
     border-radius: 5px;
-    transition: 0.3s;
+    font-weight: bold;
 }
 
-.btn:hover {
-    transform: scale(1.05);
-}
-
-/* Back */
 .back {
     display: block;
     margin-top: 20px;
-    font-size: 0.75rem;
     color: var(--gray);
     text-decoration: none;
 }
@@ -133,25 +120,52 @@ input:focus {
 <body>
 
 <div class="box">
-    <h2>Agregar</h2>
+
+    <h2>Agregar Producto</h2>
 
     <form method="POST">
+
         <div class="input-group">
-            <input type="text" name="nombre" required>
+            <input
+                type="text"
+                name="nombre"
+                placeholder="Nombre del producto"
+                required
+            >
         </div>
 
         <div class="input-group">
-            <input type="number" name="precio" required>
+            <textarea
+                name="descripcion"
+                placeholder="Descripción"
+                required
+            ></textarea>
         </div>
 
         <div class="input-group">
-            <input type="number" name="stock" required>
+            <input
+                type="number"
+                name="precio"
+                placeholder="Precio"
+                required
+            >
+        </div>
+
+        <div class="input-group">
+            <input
+                type="number"
+                name="stock"
+                placeholder="Stock"
+                required
+            >
         </div>
 
         <button class="btn">Guardar producto</button>
+
     </form>
 
     <a href="admin.php" class="back">← Volver</a>
+
 </div>
 
 </body>
