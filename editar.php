@@ -139,7 +139,7 @@ input:focus {
     </form>
 
     <a href="admin.php" class="back">
-        ← Cancelar
+        Cancelar
     </a>
 
 </div>
