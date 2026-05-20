@@ -1,10 +1,14 @@
 <?php
 session_start();
+include("conexion.php");
 
 if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit();
 }
+
+$sql = "SELECT * FROM articulos";
+$resultado = $conexion->query($sql);
 ?>
 
 <!DOCTYPE html>
