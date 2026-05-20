@@ -155,7 +155,7 @@
         <a href="#inicio">Inicio</a>
         <a href="#productos">Catálogo</a>
         <a href="#nosotros">Nosotros</a>
-        <a href="login.php" style="color: var(--accent-color); font-weight: bold;">Acceso</a>
+        <a href="login.php" style="color: var(--accent-color); font-weight: bold;">Login</a>
     </div>
 </nav>
 
