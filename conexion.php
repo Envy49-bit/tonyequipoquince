@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 $servidor = "localhost";
 $usuario = "admin_user";
-$password = "Dev*2026";
+$password = "Admin*2026";
 $bd = "papeleriatonyequipoquince";
 
 $conexion = new mysqli($servidor, $usuario, $password, $bd);
