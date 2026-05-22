@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $servidor = "localhost";
-$usuario = "dev_user";
+$usuario = "admin_user";
 $password = "Dev*2026";
 $bd = "papeleriatonyequipoquince";
 
