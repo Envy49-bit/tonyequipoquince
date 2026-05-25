@@ -155,7 +155,6 @@
         <a href="#inicio">Inicio</a>
         <a href="#productos">Catálogo</a>
         <a href="#nosotros">Nosotros</a>
-        <a href="#nosotros">XDDDDD</a>      #borrar luego, prueba git
         <a href="login.php" style="color: var(--accent-color); font-weight: bold;">Login</a>
     </div>
 </nav>
