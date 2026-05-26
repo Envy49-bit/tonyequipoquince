@@ -143,7 +143,7 @@ input:valid + label {
 <body>
 
 <div class="login-box">
-    <h2>Login</h2>
+    <h2>Panel admin Pedro</h2>
 
     <form method="POST">
         <div class="form-group">
